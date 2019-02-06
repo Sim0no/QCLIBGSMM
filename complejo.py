@@ -1,6 +1,7 @@
 from math import atan as arco_tangente,pi,sin,cos
 ##Germán Simón Marín Mejía
 ##CNYT GRUPO 1, 2019-1
+
 def suma(tupla1,tupla2):
     '''Retorna la suma de 2 numeros complejos, el primer elemento de cada
         tupla representa la parte real del numero,el otro elemento representa
@@ -8,6 +9,8 @@ def suma(tupla1,tupla2):
         (a1,b1i)+(a2,b2i) ----->(a1+a2,(b1+b2)i) ''' 
     a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
     return (a1+a2,b1+b2)
+
+
 def resta(tupla1,tupla2):
     '''Retorna la resta de 2 numeros complejos, el primer elemento de cada
         tupla representa la parte real del numero,el otro elemento representa
@@ -15,6 +18,8 @@ def resta(tupla1,tupla2):
         (a1,b1i)-(a2,b2i) ----->(a1-a2,(b1-b2)i) '''
     a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
     return (a1-a2,b1-b2)
+
+
 def multiplicacion(tupla1,tupla2):
     '''Retorna la multiplicación de 2 numeros complejos, el primer elemento de cada
         tupla representa la parte real del numero,el otro elemento representa
@@ -31,6 +36,8 @@ def division(tupla1,tupla2):
         a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
         return (round((a1*a2+b1*b2)/((a2)**2+(b2)**2),3),round(((a2*b1)-(a1*b2))/((a2)**2+(b2)**2),3))
     except ZeroDivisionError:print('La division entre estos 2 numeros no esta definida.')
+        
+        
 def modulo(tupla):
     '''Retorna el modulo de un numero complejo, el primer elemento de la
             tupla representa la parte real del numero,el otro elemento representa
@@ -39,6 +46,7 @@ def modulo(tupla):
     a,b = tupla[0],tupla[1]
     return ((a)**2+(b)**2)**0.5
 
+
 def conjugado(tupla):
     '''Retorna el conjugado de un numero complejo, el primer elemento de la
             tupla representa la parte real del numero,el otro elemento representa
@@ -46,6 +54,8 @@ def conjugado(tupla):
             conjugado(a + bi) -----> a - bi'''
     a,b = tupla[0],tupla[1]
     return (a,b*-1)
+
+
 def polar(tupla):
     '''Convierte un numero complejo de su forma binomica/cartesiana a polar,el primer elemento
         de la tupla representa la parte real del numero,el otro elemento representa
@@ -55,6 +65,8 @@ def polar(tupla):
     z = modulo(tupla)
     angulo = arco_tangente(b/a)
     return (round(z,3),round(angulo,3))
+
+
 def cartesiano(tupla):
     '''Convierte un numero complejo de su forma polar a binomica/cartesiana,el primer elemento
         de la tupla representa la magnitud,el otro elemento representa
@@ -64,11 +76,14 @@ def cartesiano(tupla):
     a = magnitud*cos(angulo)
     b = magnitud*sin(angulo)
     return (round(a,3),round(b,3))
+
+
 def fase(tupla):
     '''Retorna la fase/direccion (en radianes) de un numero complejo.'''
     a,b = tupla[0],tupla[1]
     angulo = arco_tangente(b/a)
     return (round(angulo,3))
+
 
 def polarGrados(tupla):
     '''Convierte un numero complejo de su forma binomica/cartesiana a polar,el primer elemento
@@ -89,6 +104,8 @@ def polarGrados(tupla):
     elif a < 0: angulo = 180 + arco
     elif b < 0: angulo = 360 + arco
     return (round(z,3),round(angulo,3))
+
+
 def cartesianoGrados(tupla):
     '''Convierte un numero complejo de su forma polar a binomica/cartesiana,el primer elemento
         de la tupla representa la magnitud,el otro elemento representa
@@ -100,7 +117,7 @@ def cartesianoGrados(tupla):
     b = magnitud*sin(angulo)
     return (round(a,3),round(b,3))
 
-
+##############VECTORES Y MATRICES
 
 def sumaVectores(vector1,vector2):
     '''Se ingresa cada vector como [],
@@ -113,6 +130,8 @@ def sumaVectores(vector1,vector2):
     for i in range(len(vector1)):
         aux.append(suma(vector1[i],vector2[i]))
     return aux     
+
+
 def restaVectores(vector1,vector2):
     '''Se ingresa cada vector como [],
     cada componente de el vector es una tupla que contiene
@@ -123,6 +142,8 @@ def restaVectores(vector1,vector2):
     for i in range(len(vector1)):
         aux.append(resta(vector1[i],vector2[i]))
     return aux
+
+
 def multiplicacionVectorEscalar(vector,escalar):
     '''Se ingresa el vector como [],y el escalar conmplejo
     como tupla,cada componente de el vector es una tupla que
@@ -132,6 +153,8 @@ def multiplicacionVectorEscalar(vector,escalar):
     for i in range(len(vector)):
         aux.append(multiplicacion(vector[i],escalar))
     return aux
+
+
 def sumaMatricesComplejas(matriz1,matriz2):
     '''Entran 2 matrices de M x N, retorna la suma de cada matriz
     compleja.'''
@@ -140,6 +163,8 @@ def sumaMatricesComplejas(matriz1,matriz2):
     for i in range(len(matriz1)):
         aux.append(sumaVectores(matriz1[i],matriz2[i]))
     return aux
+
+
 def restaMatricesComplejas(matriz1,matriz2):
     '''Entran 2 matrices de M x N, retorna la resta de cada matriz
     compleja.'''
@@ -148,6 +173,8 @@ def restaMatricesComplejas(matriz1,matriz2):
     for i in range(len(matriz1)):
         aux.append(restaVectores(matriz1[i],matriz2[i]))
     return aux
+
+
 def multiplicacionMatrizEscalar(matriz,escalar):
     '''Se ingresa la matriz ,y el escalar conmplejo
     como tupla,cada componente de la matriz es un vector complejo, retorna la multiplicación
@@ -156,6 +183,8 @@ def multiplicacionMatrizEscalar(matriz,escalar):
     for i in range(len(matriz)):
         aux.append(multiplicacionVectorEscalar(matriz[i],escalar))
     return aux
+
+
 def matrizTranspuesta(matriz):
     '''Entra una matriz MxN, retorna su mtariz transpuesta asociada NxM'''
     aux = []
@@ -165,6 +194,8 @@ def matrizTranspuesta(matriz):
             fila.append(matriz[j][i])
         aux.append(fila)
     return aux
+
+
 def matrizConjugada(matriz):
     '''Entra una matriz , retorna su mtariz conjugada asociada '''
     aux = []
@@ -174,9 +205,13 @@ def matrizConjugada(matriz):
             fila.append(conjugado(matriz[i][j]))
         aux.append(fila)
     return aux
+
+
 def matrizAdjunta(matriz):
     '''Entra una matriz, retorna la matriz adjunta asociada'''
     return matrizTranspuesta(matrizConjugada(matriz))
+
+
 def multiplicacionMatrices(matriz1,matriz2):
     '''Entran 2 matrices, una de M x I, la otra de I X N, retorna
         la multiplicacion de lamatriz1 por la matriz 2 de dimension M X N'''
@@ -186,9 +221,18 @@ def multiplicacionMatrices(matriz1,matriz2):
         aux.append( [None] * len(matriz2))
     for i in range(len(matriz1[0])):
         for j in range(len(matriz2)):
-            suma = (0,0)
+            summ = (0,0)
             for k in range(len(matriz2[0])):
-                suma = suma(multiplicacion(matriz1[i][k],matriz2[k][j]),suma)
-            aux[i][j] = suma
+                summ = suma(multiplicacion(matriz1[k][i],matriz2[j][k]),summ)
+            aux[i][j] = summ
     return aux
 
+
+
+def productoInternoVectores(vector1,vector2):
+    '''Se ingresan 2 vectores complejos de longitud n, retorna el producto interno entre estos'''
+    if len(vector1) != len(vector2): raise 'Los vectores no tienen la misma longitud, su producto interno no esta definido'
+    aux = (0,0)
+    for i in range(len(vector1)):
+        aux = suma(aux,multiplicacion(vector1[i],vector2[i]))
+    return aux;
