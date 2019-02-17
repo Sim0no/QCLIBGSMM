@@ -6,9 +6,9 @@ def suma(tupla1,tupla2):
     '''Retorna la suma de 2 numeros complejos, el primer elemento de cada
         tupla representa la parte real del numero,el otro elemento representa
         la parte imaginaria.
-        (a1,b1i)+(a2,b2i) ----->(a1+a2,(b1+b2)i) ''' 
+        (a1,b1i)+(a2,b2i) ----->(a1+a2,(b1+b2)i) '''
     a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
-    return (a1+a2,b1+b2)
+    return (float(a1+a2),float(b1+b2))
 
 
 def resta(tupla1,tupla2):
@@ -17,7 +17,7 @@ def resta(tupla1,tupla2):
         la parte imaginaria.
         (a1,b1i)-(a2,b2i) ----->(a1-a2,(b1-b2)i) '''
     a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
-    return (a1-a2,b1-b2)
+    return (float(a1-a2),float(b1-b2))
 
 
 def multiplicacion(tupla1,tupla2):
@@ -26,7 +26,7 @@ def multiplicacion(tupla1,tupla2):
         la parte imaginaria.
         (a1,b1i)*(a2,b2i) ----->(a1*a2-b1*b2,(a1*b2+a2*b1)i)'''
     a1,b1,a2,b2 = tupla1[0],tupla1[1],tupla2[0],tupla2[1]
-    return ((a1*a2)-(b1*b2),(a1*b2)+(a2*b1))
+    return (float((a1*a2)-(b1*b2)),float((a1*b2)+(a2*b1)))
 def division(tupla1,tupla2):
     try:
         '''Retorna la division de 2 numeros complejos, el primer elemento de cada
@@ -53,7 +53,7 @@ def conjugado(tupla):
             la parte imaginaria.
             conjugado(a + bi) -----> a - bi'''
     a,b = tupla[0],tupla[1]
-    return (a,b*-1)
+    return (float(a),float(b*-1))
 
 
 def polar(tupla):
@@ -236,3 +236,52 @@ def productoInternoVectores(vector1,vector2):
     for i in range(len(vector1)):
         aux = suma(aux,multiplicacion(vector1[i],vector2[i]))
     return aux;
+
+
+def moduloVector(vector):
+    '''Se ingresa un vector complejo, retorna el modulo del vector'''
+    aux = (0,0)
+    for i in vector:
+        aux = suma(aux,(modulo(i),0))
+    return round(aux[0],3)
+
+
+def distanciaEntreVectores(vector1,vector2):
+    '''Se ingresan 2 vectores complejos de longitud n, retorna la distancia entre estos'''
+    if len(vector1) != len(vector2): raise 'Los vectores no tienen la misma longitud, su producto interno no esta definido'
+    return moduloVector(restaVectores(vector1,vector2))
+
+        
+def esHermitiana(matriz):
+    '''Entra una matriz cuadrada, Retorna verdadero  si la matriz es hermitiana(igual a su propia traspuesta conjugada)'''
+    if len(matriz) != len(matriz[0]):  raise 'La matriz no es cuadrada'
+    return matriz == matrizAdjunta(matriz)
+
+
+def esUnitaria(matriz):
+    '''Entra una matriz cuadrada, Retorna verdadero  si la matriz es unitaria'''
+    if len(matriz) != len(matriz[0]):  raise 'La matriz no es cuadrada'
+    i = [[(float(0),float(0)) for w in range(len(matriz))]for j in range(len(matriz))]
+    for k in range(len(i)):
+        i[k][k] = (float(1),float(0))
+    return multiplicacionMatrices(matriz,matrizAdjunta(matriz)) == multiplicacionMatrices(matrizAdjunta(matriz),matriz) == i
+
+
+def productoTensor(matriz1,matriz2):
+    '''Entran 2 matrices, retorna el producto tensor entre estos'''
+    aux = []
+    subLista = []
+    conta = len(matriz2)
+    for i in matriz1:
+        valorB = 0
+        valorA = 0
+        while valorA < conta:
+            for num1 in i:
+                for num2 in matriz2[valorB]:
+                    subLista.append(multiplicacion(num1,num2))
+            valorB += 1
+            aux.append(subLista)
+            subLista = []
+            valorA +=1
+    return aux
+
