@@ -279,9 +279,9 @@ def productoTensor(matriz1,matriz2):
             for num1 in i:
                 for num2 in matriz2[valorB]:
                     subLista.append(multiplicacion(num1,num2))
-            valorB += 1
             aux.append(subLista)
             subLista = []
             valorA +=1
+            valorB += 1
     return aux
 
