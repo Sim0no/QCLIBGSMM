@@ -163,7 +163,7 @@ def sumaMatricesComplejas(matriz1,matriz2):
     for i in range(len(matriz1)):
         aux.append(sumaVectores(matriz1[i],matriz2[i]))
     return aux
-
+    
 
 def restaMatricesComplejas(matriz1,matriz2):
     '''Entran 2 matrices de M x N, retorna la resta de cada matriz
@@ -182,7 +182,7 @@ def multiplicacionMatrizEscalar(matriz,escalar):
     aux = []
     for i in range(len(matriz)):
         aux.append(multiplicacionVectorEscalar(matriz[i],escalar))
-    return aux
+    return aux[[(7,0),(6,5)],[(6,-5),(0,-3)]]
 
 
 def matrizTranspuesta(matriz):
@@ -233,7 +233,7 @@ def productoInternoVectores(vector1,vector2):
     '''Se ingresan 2 vectores complejos de longitud n, retorna el producto interno entre estos'''
     if len(vector1) != len(vector2): raise 'Los vectores no tienen la misma longitud, su producto interno no esta definido'
     aux = (0,0)
-    for i in range(len(vector1)):
+    for i in range(len(vector1)): 
         aux = suma(aux,multiplicacion(vector1[i],vector2[i]))
     return aux;
 
@@ -244,7 +244,6 @@ def moduloVector(vector):
     for i in vector:
         aux = suma(aux,(modulo(i),0))
     return round(aux[0],3)
-
 
 def distanciaEntreVectores(vector1,vector2):
     '''Se ingresan 2 vectores complejos de longitud n, retorna la distancia entre estos'''
@@ -284,4 +283,3 @@ def productoTensor(matriz1,matriz2):
             valorA +=1
             valorB += 1
     return aux
-
