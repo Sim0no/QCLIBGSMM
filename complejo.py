@@ -284,8 +284,6 @@ def productoTensor(matriz1,matriz2):
             valorB += 1
     return aux
 
-
-
 #######de lo clásico a lo cuántico
 
 def marbels(matrizAdj, estadoInicial, clicks):
@@ -300,3 +298,27 @@ def marbels(matrizAdj, estadoInicial, clicks):
             aux.append(sume)
         estadoInicial  = aux
     return aux
+
+
+def barras(matrizAdj, estadoInicial, clicks):
+    '''Se simula el experimento de  barra con una cantidad de clicks'''
+    while clicks > 0:
+        clicks -= 1
+        aux = []
+        for i in range(len(matrizAdj)):
+            sume = (0,0)
+            for j in range(len(estadoInicial)):
+               sume = suma(sume,multiplicacion(estadoInicial[j],matrizAdj[i][j]))
+            aux.append(sume)
+        estadoInicial  = aux
+    return aux
+
+
+def dobleRendija(matriz,clicks):
+    '''Se realiza el esperimento de la doble rendija'''
+    for i in range(len(matriz)):
+        for j in range(len(matriz[0])):
+            for x in range(clicks):
+                matriz[i][j] = multiplicacion(matriz[i][j],matriz[i][j])
+            matriz[i][j] = modulo(matriz[i][j])
+    return matriz
