@@ -11,5 +11,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(complejo.esHermitiana(m3))
         self.assertTrue(complejo.esUnitaria(m4))
         self.assertTrue(len(m5)*len(m6) == len(complejo.productoTensor(m5,m6)))
+        x = marbels([[(0,0),(0,0),(0,0),(0,0),(0,0),(0,0)],[(0,0),(0,0),(0,0),(0,0),(0,0),(0,0)],[(0,0),(1,0),(0,0),(0,0),(0,0),(1,0)],[(0,0),(0,0),(0,0),(1,0),(0,0),(0,0)],[(0,0),(0,0),(1,0),(0,0),(0,0),(0,0)],[(1,0),(0,0),(0,0),(0,0),(1,0),(0,0)]],[(6,0),(2,0),(1,0),(5,0),(3,0),(10,0)],1)
+        self.assertEquals(x,[(0.0, 0.0), (0.0, 0.0), (12.0, 0.0), (5.0, 0.0), (1.0, 0.0), (9.0, 0.0)])
 if __name__ == '__main__':
     unittest.main()
