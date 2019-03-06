@@ -301,6 +301,7 @@ def marbels(matrizAdj, estadoInicial, clicks):
         estadoInicial  = aux
     return aux
 
+
 def barras(matrizAdj, estadoInicial, clicks):
     '''Se simula el experimento de  barra con una cantidad de clicks'''
     while clicks > 0:
@@ -314,6 +315,7 @@ def barras(matrizAdj, estadoInicial, clicks):
         estadoInicial  = aux
     return aux
 
+
 def dobleRendija(matriz,clicks):
     '''Se realiza el esperimento de la doble rendija'''
     for i in range(len(matriz)):
@@ -322,3 +324,9 @@ def dobleRendija(matriz,clicks):
                 matriz[i][j] = multiplicacion(matriz[i][j],matriz[i][j])
             matriz[i][j] = modulo(matriz[i][j])
     return matriz
+
+
+def dobleRendijaBalas(matriz,clicks):
+    '''Se realiza el esperimento de la doble rendija'''
+    return matrizTranspuesta(multiplicacionMatrices(matriz,matriz))
+
