@@ -284,6 +284,8 @@ def productoTensor(matriz1,matriz2):
             valorB += 1
     return aux
 
+
+
 #######de lo clásico a lo cuántico
 
 def marbels(matrizAdj, estadoInicial, clicks):
