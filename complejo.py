@@ -227,7 +227,20 @@ def multiplicacionMatrices(matriz1,matriz2):
             aux[i][j] = summ
     return aux
 
-
+def multiplicacionMatricesNormales(matriz1,matriz2):
+    '''Entran 2 matrices, una de M x I, la otra de I X N, retorna
+        la multiplicacion de lamatriz1 por la matriz 2 de dimension M X N'''
+    if (len(matriz1) != len(matriz2[0])): raise 'La multiplicación de matrices no está definida para estas matrices'
+    aux = []
+    for i in range(len(matriz1[0])):
+        aux.append( [None] * len(matriz2))
+    for i in range(len(matriz1[0])):
+        for j in range(len(matriz2)):
+            summ = 0
+            for k in range(len(matriz2[0])):
+                summ += matriz1[i][k][0]*matriz2[j][k]
+            aux[i][j] = summ
+    return aux
 
 def productoInternoVectores(vector1,vector2):
     '''Se ingresan 2 vectores complejos de longitud n, retorna el producto interno entre estos'''
@@ -323,10 +336,11 @@ def dobleRendija(matriz,clicks):
             for x in range(clicks):
                 matriz[i][j] = multiplicacion(matriz[i][j],matriz[i][j])
             matriz[i][j] = modulo(matriz[i][j])
-    return matriz
-
-
-def dobleRendijaBalas(matriz,clicks):
-    '''Se realiza el esperimento de la doble rendija'''
-    return matrizTranspuesta(multiplicacionMatrices(matriz,matriz))
-
+            
+def dobleRendijaBalas(matriz,posicion,clicks):
+    '''Se realiza el esperimento de la doble rendija, matriz representa el estado inicial del sistema,
+        posicion representa la posicion inicial de la bala, clicks el numero de clicks'''
+    posicion = [[i for i in posicion]]
+    for i in range(clicks-1):
+        matriz = matrizTranspuesta(multiplicacionMatrices(matriz,matriz))
+    return multiplicacionMatricesNormales(matriz,posicion)
