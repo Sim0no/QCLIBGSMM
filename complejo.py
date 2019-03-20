@@ -151,7 +151,7 @@ def multiplicacionVectorEscalar(vector,escalar):
     del vector complejo por e escalar complejo'''
     aux = []
     for i in range(len(vector)):
-        aux.append(multiplicacion(vector[i],escalar))
+        aux.append(multiplicacion(vector[i],(escalar,0)))
     return aux
 
 
@@ -253,10 +253,10 @@ def productoInternoVectores(vector1,vector2):
 
 def moduloVector(vector):
     '''Se ingresa un vector complejo, retorna el modulo del vector'''
-    aux = (0,0)
+    aux = 0
     for i in vector:
-        aux = suma(aux,(modulo(i),0))
-    return round(aux[0],3)
+        aux += modulo(i)**2
+    return round(aux**0.5,3)
 
 def distanciaEntreVectores(vector1,vector2):
     '''Se ingresan 2 vectores complejos de longitud n, retorna la distancia entre estos'''
@@ -344,3 +344,21 @@ def dobleRendijaBalas(matriz,posicion,clicks):
     for i in range(clicks-1):
         matriz = matrizTranspuesta(multiplicacionMatrices(matriz,matriz))
     return multiplicacionMatricesNormales(matriz,posicion)
+
+
+
+def superPosition(vector,n):
+    '''Entra como parametro un vector y un numero n, retornamos la probabilidad de que nuestra particula
+    se encuentre en la posicion n.'''
+    moduloo = moduloVector(vector)
+    particula = vector[n]
+    return round((modulo(particula)/moduloo)**2,6)
+
+def amplitudeOfTransition(n1,n2,v1,v2):
+    '''La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna''' 
+    for i in range(len(v1)):
+        v1[i] = conjugado(v1[i])
+    v1 =  multiplicacionVectorEscalar(v1,n1)
+    v2 =  multiplicacionVectorEscalar(v2,n2)
+    return productoInternoVectores(v1,v2)
+    
