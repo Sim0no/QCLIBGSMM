@@ -1,6 +1,9 @@
+
 from math import atan as arco_tangente,pi,sin,cos
+from numpy import linalg as alli
 ##Germán Simón Marín Mejía
 ##CNYT GRUPO 1, 2019-1
+
 
 def suma(tupla1,tupla2):
     '''Retorna la suma de 2 numeros complejos, el primer elemento de cada
@@ -182,7 +185,7 @@ def multiplicacionMatrizEscalar(matriz,escalar):
     aux = []
     for i in range(len(matriz)):
         aux.append(multiplicacionVectorEscalar(matriz[i],escalar))
-    return aux[[(7,0),(6,5)],[(6,-5),(0,-3)]]
+    return aux
 
 
 def matrizTranspuesta(matriz):
@@ -212,21 +215,24 @@ def matrizAdjunta(matriz):
     return matrizTranspuesta(matrizConjugada(matriz))
 
 
-def multiplicacionMatrices(matriz1,matriz2):
+def multiplicacionMatrices(A,B):
     '''Entran 2 matrices, una de M x I, la otra de I X N, retorna
         la multiplicacion de lamatriz1 por la matriz 2 de dimension M X N'''
-    if (len(matriz1[0]) != len(matriz2)): raise 'La multiplicación de matrices no está definida para estas matrices'
-    aux = []
-    for i in range(len(matriz1[0])):
-        aux.append( [None] * len(matriz2))
-    for i in range(len(matriz1[0])):
-        for j in range(len(matriz2)):
-            summ = (0,0)
-            for k in range(len(matriz2[0])):
-                summ = suma(multiplicacion(matriz1[k][i],matriz2[j][k]),summ)
-            aux[i][j] = summ
-    return aux
-
+    filasB = len(B)
+    columnasA = len(A[0])
+    if filasB == columnasA:
+        filas = len(A)
+        columnas = len(B[0])
+        matriz = [[(0, 0)] * columnas for x in range(filas)]
+        for i in range(0, filas):
+            for j in range(0, columnas):
+                for k in range(0, len(B)):
+                    m = multiplicacion(A[i][k], B[k][j])
+                    n = matriz[i][j]
+                    matriz[i][j] = (m[0]+n[0], m[1]+n[1])
+        return matriz
+    else:
+        raise 'La multiplicación de matrices no está definida para estas matrices'
 def multiplicacionMatricesNormales(matriz1,matriz2):
     '''Entran 2 matrices, una de M x I, la otra de I X N, retorna
         la multiplicacion de lamatriz1 por la matriz 2 de dimension M X N'''
@@ -356,9 +362,45 @@ def superPosition(vector,n):
 
 def amplitudeOfTransition(n1,n2,v1,v2):
     '''La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna''' 
-    for i in range(len(v1)):
-        v1[i] = conjugado(v1[i])
+    for i in range(len(v2)):
+        v2[i] = conjugado(v2[i])
     v1 =  multiplicacionVectorEscalar(v1,n1)
     v2 =  multiplicacionVectorEscalar(v2,n2)
     return productoInternoVectores(v1,v2)
-    
+def identidad(n):
+    '''Nos retorna la matriz idenidad en C*n'''
+    x = [[(0,0) for i in range(n)] for j in range(n)]
+    for i in range(n):
+        x[i][i] = (1,0)
+    return x
+def valorPromedio(matriz,ket):
+    '''Retornamos el valor promedio asociado al sistema'''
+    kat = []
+    for i in range(len(ket)):
+        kat.append([ket[i]])
+    au = multiplicacionMatrices(matriz,kat)
+    aux = []
+    au = matrizConjugada(au)
+    for i in au:
+        for j in i:
+            aux.append(j)
+
+    return productoInternoVectores(ket,aux)
+def varianza(matriz,ket):
+    '''Esta funcion calcula la varianza dada una matriz de estado y su correspondiente vector ket
+    retorna un numero complejo'''
+    if esHermitiana(matriz):
+        n = len(matriz)
+        mAux = multiplicacionMatrizEscalar(identidad(n),valorPromedio(matriz,ket)[0])
+        matrizMu = restaMatricesComplejas(matriz,mAux)
+        cuadrado = multiplicacionMatrices(matrizMu,matrizMu)
+        ans = 0
+        for i in range(len(ket)):
+            a = modulo(ket[i])**2
+            b = multiplicacion(cuadrado[i][i],cuadrado[i][i])
+            print(a,b)
+            ans += a*b[0]
+        return ans
+            
+    else:raise 'La matriz no es Hermitiana'
+        
