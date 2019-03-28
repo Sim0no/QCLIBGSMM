@@ -1,10 +1,12 @@
 import unittest,complejo,math as m
 class TestStringMethods(unittest.TestCase):
+
     
     def test_deveriaFallar(self):
         m2,m3=[[(7,0),(6,5)],[(6,-5),(0,-3)]],[[(7,0),(6,5)],[(6,-5),(-3,0)]]
         self.assertFalse(complejo.esHermitiana(m2))
         self.assertFalse(complejo.esUnitaria(m3))
+
 
         
     def test_deveriaServir(self):
@@ -14,6 +16,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(complejo.esHermitiana(m3))
         self.assertTrue(complejo.esUnitaria(m4))
         self.assertTrue(len(m5)*len(m6) == len(complejo.productoTensor(m5,m6)))
+
         
         
     def test_canicas(self):
@@ -21,6 +24,7 @@ class TestStringMethods(unittest.TestCase):
         m8 = [[(0,0),(0,0),(0,0),(0,0),(0,0),(0,0)],[(0,0),(0,0),(0,0),(0,0),(0,0),(0,0)],[(0,0),(1,0),(0,0),(0,0),(0,0),(1,0)],[(0,0),(0,0),(0,0),(1,0),(0,0),(0,0)],[(0,0),(0,0),(1,0),(0,0),(0,0),(0,0)],[(1,0),(0,0),(0,0),(0,0),(1,0),(0,0)]]
         x = complejo.marbels(m8,[(6,0),(2,0),(1,0),(5,0),(3,0),(10,0)],1)
         self.assertEqual(x,[(0.0, 0.0), (0.0, 0.0), (12.0, 0.0), (5.0, 0.0), (1.0, 0.0), (9.0, 0.0)])
+
         
         
     def test_dobleRendija(self):
@@ -29,6 +33,7 @@ class TestStringMethods(unittest.TestCase):
         y = complejo.dobleRendija(m7,1)
         respuesta = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.4999999999999999, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.4999999999999999, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.3333333333333334, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.3333333333333334, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.3333333333333334, 0.3333333333333334, 0.0, 0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.3333333333333334, 0.0, 0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.3333333333333334, 0.0, 0.0, 0.0, 0.0, 1.0]] 
         self.assertEqual(y,respuesta)
+
         
         
     def test_dobleRendijaBala(self):
@@ -37,11 +42,13 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(x,[[(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.16666666666666666, 0.0), (0.3333333333333333, 0.0), (0.0, 0.0), (1.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.16666666666666666, 0.0), (0.3333333333333333, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.3333333333333333, 0.0), (0.3333333333333333, 0.0), (0.3333333333333333, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (0.0, 0.0), (0.0, 0.0)], [(0.16666666666666666, 0.0), (0.0, 0.0), (0.3333333333333333, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (0.0, 0.0)], [(0.16666666666666666, 0.0), (0.0, 0.0), (0.3333333333333333, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0)]])
 
         
+
     def test_superPosition(self):
         #Ejemplo 4.1.1
         v = [(-3,-1),(0,-2),(0,1),(2,0)]
         r = complejo.superPosition(v,2)
         self.assertTrue(abs(r-0.052624)<=0.0001)
+
         
         
     def test_amplitudeOfTransition(self):
@@ -51,6 +58,7 @@ class TestStringMethods(unittest.TestCase):
         transicion = complejo.amplitudeOfTransition(a,b)
         respuesta = (0,-1)
         self.assertEqual(respuesta,(int(transicion[0]),int(transicion[1])))
+
         
         
     def test_varianza(self):
@@ -59,6 +67,7 @@ class TestStringMethods(unittest.TestCase):
         ket = [((2)**0.5/2,0),(0,(2)**0.5/2)]
         respuesta = 2.25
         self.assertTrue(abs(respuesta-complejo.varianza(observador,ket)) <= 0.0000001)
+
         
         
     def test_probabilidadTransitar(self):
@@ -70,15 +79,15 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(abs(respuesta-miRespuesta) < 0.00000001)
 
         
+
     def test_dinamicaSistema(self):
         #Ejercicio 4.4.2
         mapaUnitario = [[(0,0),(1/(2)**0.5,0),(1/(2)**0.5,0),(0,0)],[(0,1/(2)**0.5),(0,0),(0,0),(1/(2)**0.5,0)],[(1/(2)**0.5,0),(0,0),(0,0),(0,1/(2)**0.5)],[(0,0),(1/(2)**0.5,0),(-1/(2)**0.5,0),(0,0)]]
         estado = [(1,0),(0,0),(0,0),(0,0)]
         miRespuesta = complejo.dinamicaSistema(4,mapaUnitario,estado)
-        self.assertTrue(abs((1/2) - miRespuesta[3][0]) < 0.000000001) 
-        
+        self.assertTrue(abs((1/2) - miRespuesta[3][0]) < 0.000000001)
+
+
         
 if __name__ == '__main__':
     unittest.main()
-
-    
