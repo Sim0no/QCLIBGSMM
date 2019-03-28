@@ -22,7 +22,7 @@ Importar
 import complejo
 
 ```
-##Probando algunas funcionalidades de nuestra libreria
+## Probando algunas funcionalidades de nuestra libreria
 
 Input
 ```
@@ -85,6 +85,38 @@ Output
 2.2500000000000013
 ``` 
 
+
+### probabilidadTransitar
+Entran como parametro una matriz observable y un vector de estado,
+retorna la probabilidad de que el sistema transite a alguno de los vectores
+propios después de la observación.
+
+Input
+``` 
+observable = [[(-1,0),(0,-1)],[(0,1),(1,0)]]
+estado = [(1/2,0),(1/2,0)]
+complejo.probabilidadTransitar(observable,estado)
+``` 
+Output
+``` 
+0.0
+``` 
+
+
+### dinamicaSistema
+n es el numero de pasos n, se va calcular el estado final despues de
+que se haya aplicado la secuencia completa de la matriz M n veces
+
+Input
+``` 
+mapaUnitario = [[(0,0),(1/(2)**0.5,0),(1/(2)**0.5,0),(0,0)],[(0,1/(2)**0.5),(0,0),(0,0),(1/(2)**0.5,0)],[(1/(2)**0.5,0),(0,0),(0,0),(0,1/(2)**0.5)],[(0,0),(1/(2)**0.5,0),(-1/(2)**0.5,0),(0,0)]]
+estado = [(1,0),(0,0),(0,0),(0,0)]
+complejo.dinamicaSistema(4,mapaUnitario,estado)
+``` 
+Output
+``` 
+[(-0.49999999999999983, 0.49999999999999983), (0.0, 0.0), (0.0, 0.0), (0.49999999999999983, 0.49999999999999983)]
+``` 
 
 
 ## Authors
