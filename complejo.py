@@ -361,7 +361,9 @@ def superPosition(vector,n):
     return round((modulo(particula)/moduloo)**2,6)
 
 def amplitudeOfTransition(v1,v2):
-    '''La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna''' 
+    '''La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna
+    nos retorna un numero complejo que representa la amplitud de transición de un vector v1
+    a un vector v2''' 
     for i in range(len(v1)):
         v1[i] = conjugado(v1[i])
     return productoInternoVectores(v1,v2)
