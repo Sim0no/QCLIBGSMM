@@ -1,6 +1,6 @@
-
 from math import atan as arco_tangente,pi,sin,cos
 from numpy import linalg as alli
+import numpy as np
 ##Germán Simón Marín Mejía
 ##CNYT GRUPO 1, 2019-1
 
@@ -342,7 +342,7 @@ def dobleRendija(matriz,clicks):
             for x in range(clicks):
                 matriz[i][j] = multiplicacion(matriz[i][j],matriz[i][j])
             matriz[i][j] = modulo(matriz[i][j])
-            
+    return matriz
 def dobleRendijaBalas(matriz,posicion,clicks):
     '''Se realiza el esperimento de la doble rendija, matriz representa el estado inicial del sistema,
         posicion representa la posicion inicial de la bala, clicks el numero de clicks'''
@@ -360,12 +360,10 @@ def superPosition(vector,n):
     particula = vector[n]
     return round((modulo(particula)/moduloo)**2,6)
 
-def amplitudeOfTransition(n1,n2,v1,v2):
+def amplitudeOfTransition(v1,v2):
     '''La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna''' 
-    for i in range(len(v2)):
-        v2[i] = conjugado(v2[i])
-    v1 =  multiplicacionVectorEscalar(v1,n1)
-    v2 =  multiplicacionVectorEscalar(v2,n2)
+    for i in range(len(v1)):
+        v1[i] = conjugado(v1[i])
     return productoInternoVectores(v1,v2)
 def identidad(n):
     '''Nos retorna la matriz idenidad en C*n'''
@@ -397,10 +395,94 @@ def varianza(matriz,ket):
         ans = 0
         for i in range(len(ket)):
             a = modulo(ket[i])**2
-            b = multiplicacion(cuadrado[i][i],cuadrado[i][i])
-            print(a,b)
-            ans += a*b[0]
-        return ans
-            
+            ans += a*cuadrado[i][i][0]
+        return ans         
     else:raise 'La matriz no es Hermitiana'
+
+    
+def valoresPropios(observable):
+    '''retorna un arreglo con los valores propios del observable'''
+    aux = []
+    for i in range(len(observable)):
+        z = []
+        for j in range(len(observable[0])):
+            a = observable[i][j][0]
+            b = observable[i][j][1]
+            b = eval(str(b)+'j')
+            z.append(a+b)
+        aux.append(z)
+    valores,vectores = alli.eigh(aux)
+    rta = []
+    for i in valores:
+        rta.append(i)
+    return rta
+
+
+def vectoresPropios(observable):
+    '''retorna un arreglo con los vectores propios del observable'''
+    '''retorna un arreglo con los valores propios del observable'''
+    aux = []
+    for i in range(len(observable)):
+        z = []
+        for j in range(len(observable[0])):
+            a = observable[i][j][0]
+            b = observable[i][j][1]
+            b = eval(str(b)+'j')
+            z.append(a+b)
+        aux.append(z)
+    valores,vectores = alli.eigh(aux)
+    rta = []
+    for i in vectores:
+        w = []
+        for j in i:
+            aux = str(j)
+            b = aux.index('j')
+            a = b
+            for i in range(len(aux)):
+                if aux[::-1][i] == '-' or aux[::-1][i] == '+':
+                    a = i
+                    break
+            try:
+                a = len(aux)-a
+                tupla = (float(aux[1:a-1]),float(aux[a:b]))
+                w.append(tupla)
+            except ValueError:
+                tupla = (0,float(aux[:b]))
+                w.append(tupla)
+        rta.append(w)
+    return rta
+
+
+def probabilidadTransitar(observable,estado):
+    '''Entran como parametro una matriz observable y un vector de estado,
+    retorna la probabilidad de que el sistema transite a alguno de los vectores
+    propios después de la observación.'''
+    propios = vectoresPropios(observable)
+    valores = valoresPropios(observable)
+    aux = []
+    for i in range(len(estado)):
+        aux.append([estado[i]])
+    au = multiplicacionMatrices(observable,aux)
+    aux = []
+    for i in au:
+        for j in i:
+            aux.append(j)
+    pn = []
+    for i in aux:
+        pn.append(modulo(i)**2)
+    ans = 0
+    for i in range(len(valores)):
+        ans += valores[i]*pn[i]
+    return ans
+
+
+def dinamicaSistema(n,M,estado):
+    '''n es el numero de pasos n, se va calcular el estado final despues de
+    que se haya aplicado la secuencia completa de la matriz M n veces'''
+    estado = [estado]
+    for i in range(n):
+        estado = multiplicacionMatrices(estado,M)
+    return estado[0]
         
+    
+    
