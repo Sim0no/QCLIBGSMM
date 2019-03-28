@@ -44,7 +44,7 @@ Input
 
 ```        
 v = [(-3,-1),(0,-2),(0,1),(2,0)]
-r = complejo.superPosition(v,2)
+complejo.superPosition(v,2)
 ```        
 Output
 
@@ -52,6 +52,22 @@ Output
 0.052629
 
 ```     
+
+La función recibe como parametro 2 escalares y 2 vectores, la función nos retorna
+nos retorna un numero complejo que representa la amplitud de transición de un vector v1
+a un vector v2
+
+Input
+``` 
+a = [(0,(2)**0.5/2),(-(2)**0.5/2,0)]
+b = [((2)**0.5/2,0),(0,(2)**0.5/2)]
+complejo.amplitudeOfTransition(a,b)
+``` 
+Output
+``` 
+(0.0, -1.0000000000000002)
+``` 
+
 ## Authors
 
 * **Simón Marín** (https://github.com/Simono2000)
