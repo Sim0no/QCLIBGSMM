@@ -121,5 +121,5 @@ Output
 
 ## Authors
 
-* **Simón Marín** (https://github.com/Simono2000)
+* **Simón Marín** (https://github.com/Sim0no)
 
